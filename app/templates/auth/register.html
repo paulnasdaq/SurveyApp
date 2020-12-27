@@ -1,0 +1,87 @@
+{% extends 'auth/layout.html' %}
+{% block nav %}
+    <li><a href={{ url_for('auth.login') }}>Login<i
+            class="material-icons right orange-text">power_settings_new</i></a></li>
+    <li class="active"><a href="#">Sign Up<i
+            class="material-icons right orange-text">account_circle</i></a></li>
+{% endblock %}
+{% block sidenav %}
+    <ul class="sidenav grey-text" id="mobile-sidenav">
+         <li><a href={{ url_for('auth.login') }}>Login<i
+            class="material-icons left orange-text">power_settings_new</i></a></li>
+    <li class="active"><a href="#">Sign Up<i
+            class="material-icons left orange-text">account_circle</i></a></li>
+    </ul>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="card col s12 m8 offset-m2 grey lighten-3">
+            <h1 class="center">Sign Up</h1>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">mail</i>
+                        {{ form.email }}
+                        {{ form.email.label }}
+                        {% if form.email.errors %}
+                            {% for error in form.email.errors %}
+                                <span class="helper-text " data-error="wrong">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <i class="material-icons prefix">account_circle</i>
+                        {{ form.first_name }}
+                        {{ form.first_name.label }}
+                        {% if form.first_name.errors %}
+                            {% for error in form.first_name.errors %}
+                                <span class="helper-text " data-error="wrong">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <i class="material-icons prefix">account_circle</i>
+                        {{ form.last_name }}
+                        {{ form.last_name.label }}
+                        {% if form.last_name.errors %}
+                            {% for error in form.last_name.errors %}
+                                <span class="helper-text " data-error="wrong">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <i class="material-icons prefix">vpn_key</i>
+                        {{ form.password }}
+                        {{ form.password.label }}
+                        {% if form.password.errors %}
+                            {% for error in form.password.errors %}
+                                <span class="helper-text " data-error="wrong">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <i class="material-icons prefix">vpn_key</i>
+                        {{ form.confirm_password }}
+                        {{ form.confirm_password.label }}
+                        {% if form.confirm_password.errors %}
+                            {% for error in form.confirm_password.errors %}
+                                <span class="helper-text " data-error="wrong">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row center">
+                    <button class="btn btn-large orange lighten-1 waves-effect waves-light col s10 offset-s1"
+                            type="submit" name="action">Sign Up
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

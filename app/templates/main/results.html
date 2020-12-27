@@ -1,0 +1,72 @@
+{% extends 'main/layout.html' %}
+{% block nav_items %}
+    <li><a href="{{ url_for('main.index') }}">Home <i class="material-icons right orange-text">home</i></a></li>
+    <li><a href="{{ url_for('auth.logout') }}">Logout<i
+            class="material-icons right orange-text">power_settings_new</i></a></li>
+{% endblock %}
+{% block sidenav %}
+    <ul class="sidenav grey-text" id="mobile-sidenav">
+        <li><a href="{{ url_for('main.index') }}">Home <i class="material-icons left orange-text">home</i></a></li>
+        <li><a href="{{ url_for('auth.logout') }}">Logout<i
+                class="material-icons left orange-text">power_settings_new</i></a></li>
+    </ul>
+{% endblock %}
+{% block content %}
+    <h3 class="grey-text text-darken-1">Survey results</h3>
+    <hr>
+    {% if survey.answers %}
+        <div class="row">
+            {% for question in survey.questions %}
+                <div class="card grey lighten-5 col s12">
+                    <div class="card-content white-text">
+                    <span class="card-title grey-text">Question {{ question.position }}: <span
+                            class="orange-text">{{ question.question_statement }}
+                    </span></span>
+                        <table>
+                            <thead>
+                            <tr class="grey-text">
+                                <th>Survey Answer id</th>
+                                <th>Answer submitted</th>
+                            </tr>
+                            </thead>
+                            <tbody class="grey-text">
+                            {% if question.type.value == 1 %}
+                                {% for answer in question.answers %}
+                                    <tr>
+                                        <td>{{ answer.survey_answer_id }}</td>
+                                        <td>{{ answer.integer_answer }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% elif question.type.value == 2 %}
+                                {% for answer in question.answers %}
+                                    <tr>
+                                        <td>{{ answer.survey_answer_id }}</td>
+                                        <td>{{ answer.text_answer }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% elif question.type.value == 3 %}
+                                {% for answer in question.answers %}
+                                    <tr>
+                                        <td>{{ answer.survey_answer_id }}</td>
+                                        <td>{{ answer.selected_option.option_text }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                {% for answer in question.answers %}
+                                    <tr>
+                                        <td>{{ answer.survey_answer_id }}</td>
+                                        <td>{% for option in answer.selected_options %} {{ option.option_text }}
+                                            , {% endfor %}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>This survey currently has no results</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title or "SurveyApp" }}</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet"
+          href="{{ url_for('static', filename='css/materialize/materialize.min.css') }}" media="screen,projection"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block custom_css %}
+    {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+{% block body %}
+
+{% endblock %}
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery/jQuery.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/materialize/materialize.min.js') }}"></script>
+<script>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                M.toast({html: '{{ message }}'});
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    $(document).ready(function () {
+        $('.modal').modal({dismissible: false});
+        $('.dropdown-trigger').dropdown({constrainWidth: false});
+        $('.fixed-action-btn').floatingActionButton();
+        $('select').formSelect();
+        $('.sidenav').sidenav();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+{% extends 'auth/layout.html' %}
+{% block nav %}
+    <li class="active"><a href="#">Login<i
+            class="material-icons right orange-text">power_settings_new</i></a></li>
+    <li><a href="{{ url_for('auth.register') }}">Sign Up<i
+            class="material-icons right orange-text">account_circle</i></a></li>
+{% endblock %}
+{% block sidenav %}
+    <ul class="sidenav grey-text" id="mobile-sidenav">
+        <li class="active"><a href="#">Login<i
+            class="material-icons left orange-text">power_settings_new</i></a></li>
+    <li><a href="{{ url_for('auth.register') }}">Sign Up<i
+            class="material-icons left orange-text">account_circle</i></a></li>
+    </ul>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="card col s12 m8 offset-m2 grey lighten-3">
+            <h1 class="center">Log in</h1>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">person</i>
+                        {{ form.email }}
+                        {{ form.email.label }}
+                        {% if form.email.errors %}
+                            {% for error in form.email.errors %}
+                                <span class="helper-text" data-error="wrong" data-success="wrong">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">vpn_key</i>
+                        {{ form.password }}
+                        {{ form.password.label }}
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="btn orange btn-large lighten-1  waves-effect waves-light col s10 offset-s1"
+                            type="submit" name="action">
+                        Log in
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'main/layout.html' %}
+{% block custom_css %}
+    <style>
+        span.badge.new-c {
+            font-weight: 300;
+            font-size: 0.8rem;
+            color: #fff;
+            background-color: #2196f3;
+            border-radius: 2px;
+        }
+
+        span.badge.online {
+            font-weight: 300;
+            font-size: 0.8rem;
+            color: #fff;
+            background-color: #4caf50;
+            border-radius: 2px;
+        }
+
+        span.badge.closed {
+            font-weight: 300;
+            font-size: 0.8rem;
+            color: #fff;
+            background-color: #f44336;
+            border-radius: 2px;
+        }
+    </style>
+{% endblock %}
+{% block nav_items %}
+    <li class="active"><a href="#">Home <i class="material-icons right orange-text">home</i></a></li>
+    <li><a href="{{ url_for('auth.logout') }}">Logout<i
+            class="material-icons right orange-text">power_settings_new</i></a></li>
+{% endblock %}
+{% block sidenav %}
+    <ul class="sidenav grey-text" id="mobile-sidenav">
+        <li class="active"><a href="#">Home <i class="material-icons left orange-text">home</i></a></li>
+        <li><a href="{{ url_for('auth.logout') }}">Logout<i
+                class="material-icons left orange-text">power_settings_new</i></a></li>
+    </ul>
+{% endblock %}
+{% block content %}
+    <h3 class="grey-text text-darken-2">Dashboard</h3>
+    <div class="row">
+        <div class="card grey darken-1 col s12">
+            <div class="card-content white-text">
+                <span class="card-title">{{ current_user.first_name }} {{ current_user.last_name }}</span>
+                <p>{{ current_user.email }}</p>
+            </div>
+            <div class="card-action right-align">
+                <a href="#add-survey" class="btn btn-flat orange lighten-1 white-text modal-trigger"><i
+                        class="material-icons left">add</i>Add Survey</a>
+            </div>
+        </div>
+    </div>
+    {% if current_user.surveys %}
+        <hr>
+        <h4 class="grey-text text-darken-2">Your Surveys</h4>
+        <div class="row">
+            {% for survey in current_user.surveys %}
+
+                <div class="card  col s12 grey lighten-5 rounded">
+                    <div class="card-content">
+                            <span class="card-title orange-text"><span
+                                    class="grey-text">Title: </span> {{ survey.title }}
+                                {% if survey.state.value == 1 %}
+                                    <span class="badge new-c">new</span>
+                                {% elif survey.state.value == 2 %}
+                                    <span class="badge online">online</span>
+                                {% else %}
+                                    <span class="badge closed">closed</span>
+                                {% endif %}</span>
+                        <p class="right-align grey-text">Posted on {{ survey.fdate_created }}</p>
+                        <p><span class="grey-text">Description: </span>{{ survey.description }}</p>
+                    </div>
+                    <div class="card-action right-align">
+                        <a href="{{ url_for('main.survey_view', id=survey.id) }}" class="orange btn btn-flat lighten-1">view
+                            item</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You currently have no surveys, click on the add button above create one.</p>
+    {% endif %}
+    <div id="add-survey" class="modal modal-fixed-footer">
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <div class="modal-content">
+                <h4 class="center orange-text">Create a new survey.</h4>
+                <div class="divider"></div>
+                <div class="input-field col s12">
+                    {{ form.title }}
+                    {{ form.title.label }}
+                </div>
+                <div class="input-field col s12">
+                    {{ form.description(class='materialize-textarea') }}
+                    {{ form.description.label }}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-red btn red">close<i
+                        class="material-icons right">cancel</i></a>
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                    create <i class="material-icons right">add</i>
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

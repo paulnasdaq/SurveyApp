@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block body %}
+    <header class="navbar-fixed">
+        <nav class="grey darken-3">
+            <div class="nav-wrapper container">
+                <a href="#" class="brand-logo left orange-text text-lighten-1">SurveyApp</a>
+                <a href="#" data-target="mobile-sidenav" class="sidenav-trigger right orange-text"><i
+                        class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    {% block nav_items %}
+                    {% endblock %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+    {% block sidenav %}
+    {% endblock %}
+
+    <main class="container">
+        {% block content %}
+
+        {% endblock %}
+    </main>
+
+
+    <footer class="page-footer grey darken-3">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="orange-text">The simple SurveyApp</h5>
+                    <p class="grey-text text-lighten-4">Create, share and view surveys!!</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="orange-text">Navigation</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="#!">Home</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2020 nasdaqjdhakjshdkjashdkjashk
+            </div>
+        </div>
+    </footer>
+{% endblock %}
